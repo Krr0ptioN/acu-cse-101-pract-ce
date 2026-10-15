@@ -18,6 +18,20 @@
 # TODO: Write Part 1 together in class below:
 
 
+book_price = 24.95
+quantity = 60
+discount = 0.40
+
+discounted_price = book_price * (1 - discount)
+books_total = discounted_price * quantity
+
+shipping = 3 + (quantity - 1) * 0.75
+
+total_cost = books_total + shipping
+
+print(f"Total cost: ${total_cost:.2f}")
+
+
 # ------------------------------------------------------------------------------
 # Part 2: Time Arithmetic with // and %
 # Use seconds as a common unit when adding durations.
@@ -30,6 +44,23 @@
 # ------------------------------------------------------------------------------
 # TODO: Write Part 2 together in class below:
 
+start_hour = 6
+start_minute = 52
+
+start_seconds = start_hour * 3600 + start_minute * 60
+
+easy_pace = 8 * 60 + 15
+fast_pace = 7 * 60 + 12
+
+running_seconds = 2 * easy_pace + 3 * fast_pace
+
+arrival_seconds = start_seconds + running_seconds
+
+arrival_hour = (arrival_seconds // 3600) % 24
+arrival_minute = (arrival_seconds % 3600) // 60
+
+print(f"{arrival_hour:02d}:{arrival_minute:02d}")
+
 
 # ------------------------------------------------------------------------------
 # Part 3: Centering & Formatting Strings
@@ -40,3 +71,9 @@
 # Print the banner.
 # ------------------------------------------------------------------------------
 # TODO: Write Part 3 together in class below:
+
+text = "PYTHON CSE 101"
+
+banner = text.center(30, "=")
+
+print(banner)

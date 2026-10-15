@@ -13,6 +13,13 @@
 # ------------------------------------------------------------------------------
 # TODO: Write your code for Challenge 1 below:
 
+notebook_price = 20
+quantity = 3
+
+total_cost = notebook_price * quantity
+
+print("Total cost:", total_cost)
+
 
 # ------------------------------------------------------------------------------
 # Challenge 2: Minutes to Seconds
@@ -21,6 +28,13 @@
 # ------------------------------------------------------------------------------
 # TODO: Write your code for Challenge 2 below:
 
+minutes = 5
+seconds_per_minute = 60
+
+seconds = minutes * seconds_per_minute
+
+print("Seconds:", seconds)
+
 
 # ------------------------------------------------------------------------------
 # Challenge 3: Simple Greeting
@@ -28,3 +42,8 @@
 # Use the variable to print "Hello, Ada!".
 # ------------------------------------------------------------------------------
 # TODO: Write your code for Challenge 3 below:
+
+
+name = "Ada"
+
+print(f"Hello, {name}!")
