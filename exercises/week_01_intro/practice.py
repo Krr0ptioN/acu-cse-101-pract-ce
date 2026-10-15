@@ -32,6 +32,8 @@ from decimal import Decimal  # noqa: F401
 # 2. Greet the user: print(f"Hello, {user_name}! Welcome to CSE 101.")
 # ------------------------------------------------------------------------------
 # TODO: Write Part 1 together in class below:
+user_name = input("Enter your name: ")
+print(f"Hello, {user_name}! Welcome to CSE 101.")
 
 
 # ------------------------------------------------------------------------------
@@ -44,7 +46,9 @@ from decimal import Decimal  # noqa: F401
 # 3. Print: print(f"You will turn {age} years old in 2026.")
 # ------------------------------------------------------------------------------
 # TODO: Write Part 2 together in class below:
-
+birth_year = int(input("Enter your birth year: "))
+age = 2026 - birth_year
+print(f"You will turn {age} years old in 2026.")
 
 # ------------------------------------------------------------------------------
 # Part 3: Float Input & Type Conversion - float()
@@ -56,6 +60,9 @@ from decimal import Decimal  # noqa: F401
 # 3. Print: print("Fahrenheit:", fahrenheit)
 # ------------------------------------------------------------------------------
 # TODO: Write Part 3 together in class below:
+celsius = float(input("Enter temperature in Celsius: "))
+fahrenheit = (celsius * 9 / 5) + 32
+print("Fahrenheit:", fahrenheit)
 
 
 # ------------------------------------------------------------------------------
@@ -68,7 +75,8 @@ from decimal import Decimal  # noqa: F401
 # 2. Print: print(f"Registered student ID: '{student_id}'")
 # ------------------------------------------------------------------------------
 # TODO: Write Part 4 together in class below:
-
+student_id = input("Enter your student ID: ").strip()
+print(f"Registered student ID: '{student_id}'")
 
 # ------------------------------------------------------------------------------
 # Part 5: Float Comparison Pitfall & math.isclose()
@@ -81,7 +89,9 @@ from decimal import Decimal  # noqa: F401
 # 3. Demonstrate that math.isclose(float_sum, 0.3) is True
 # ------------------------------------------------------------------------------
 # TODO: Write Part 5 together in class below:
-
+float_sum = 0.1 + 0.2
+print(float_sum == 0.3)
+print(math.isclose(float_sum, 0.3))
 
 # ------------------------------------------------------------------------------
 # Part 6: Exact Financial Arithmetic with Decimal
@@ -92,7 +102,8 @@ from decimal import Decimal  # noqa: F401
 # 2. Print: print("Exact Decimal sum:", exact_sum)
 # ------------------------------------------------------------------------------
 # TODO: Write Part 6 together in class below:
-
+exact_sum = Decimal("0.1") + Decimal("0.2")
+print("Exact Decimal sum:", exact_sum)
 
 # ------------------------------------------------------------------------------
 # Part 7: Multiple Assignment & Variable Swapping
@@ -104,6 +115,9 @@ from decimal import Decimal  # noqa: F401
 # 3. Print the swapped values: print(f"Swapped: a={a}, b={b}")
 # ------------------------------------------------------------------------------
 # TODO: Write Part 7 together in class below:
+a, b = 12, 34
+a, b = b, a
+print(f"Swapped: a={a}, b={b}")
 
 
 # ------------------------------------------------------------------------------
@@ -116,6 +130,9 @@ from decimal import Decimal  # noqa: F401
 # 3. Print: print(f"Rebound: x={x}, y={y}")
 # ------------------------------------------------------------------------------
 # TODO: Write Part 8 together in class below:
+x = y = 50
+x = x + 10
+print(f"Rebound: x={x}, y={y}")
 
 
 # ------------------------------------------------------------------------------
@@ -130,6 +147,16 @@ from decimal import Decimal  # noqa: F401
 # 4. Print the banner, full_name, full_name.upper(), and len(full_name)
 # ------------------------------------------------------------------------------
 # TODO: Write Part 9 together in class below:
+first_name = "ada"
+last_name = "lovelace"
+
+full_name = (first_name + " " + last_name).title()
+greeting_banner = "=" * 30
+
+print(greeting_banner)
+print(full_name)
+print(full_name.upper())
+print(len(full_name))
 
 
 # ------------------------------------------------------------------------------
@@ -145,4 +172,13 @@ from decimal import Decimal  # noqa: F401
 # ------------------------------------------------------------------------------
 # TODO: Write Part 10 together in class below:
 
+price = 49.9567
+tax_rate = 0.08
 
+print(f"${price:.2f}")
+print(f"{tax_rate:.1%}")
+
+print("Python", "CSE101", "Acibadem", sep=" :: ")
+
+print("Saving progress", end="... ")
+print("Done!")
