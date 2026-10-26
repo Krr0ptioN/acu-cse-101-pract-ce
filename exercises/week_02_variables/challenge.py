@@ -12,7 +12,12 @@
 # Calculate the total cost and print it labeled "Total cost:".
 # ------------------------------------------------------------------------------
 # TODO: Write your code for Challenge 1 below:
+notebook_price = 20
+notebook_count = 3
 
+total_cost = notebook_price * notebook_count
+
+print("Total cost:", total_cost)
 
 # ------------------------------------------------------------------------------
 # Challenge 2: Minutes to Seconds
@@ -20,7 +25,12 @@
 # Calculate the break's length in seconds and print it labeled "Seconds:".
 # ------------------------------------------------------------------------------
 # TODO: Write your code for Challenge 2 below:
+minutes = 5
+seconds_per_minute = 60
 
+total_seconds = minutes * seconds_per_minute
+
+print("Seconds:", total_seconds)
 
 # ------------------------------------------------------------------------------
 # Challenge 3: Simple Greeting
@@ -28,3 +38,6 @@
 # Use the variable to print "Hello, Ada!".
 # ------------------------------------------------------------------------------
 # TODO: Write your code for Challenge 3 below:
+name = "Ada"
+
+print("Hello, " + name + "!")
