@@ -16,7 +16,18 @@
 # each additional copy. Print the total with two decimal places.
 # ------------------------------------------------------------------------------
 # TODO: Write Part 1 together in class below:
+book_price = 24.95
+book_count = 60
+discount = 0.40
 
+discounted_price = book_price * (1 - discount)
+books_total = discounted_price * book_count
+
+shipping = 3 + (book_count - 1) * 0.75
+
+total_cost = books_total + shipping
+
+print(f"Total cost: ${total_cost:.2f}")
 
 # ------------------------------------------------------------------------------
 # Part 2: Time Arithmetic with // and %
@@ -29,7 +40,21 @@
 # per mile. Print the arrival hour and minute in HH:MM format.
 # ------------------------------------------------------------------------------
 # TODO: Write Part 2 together in class below:
+start_hour = 6
+start_minute = 52
 
+first_pace = 8 * 60 + 15
+second_pace = 7 * 60 + 12
+
+running_seconds = 2 * first_pace + 3 * second_pace
+
+start_seconds = start_hour * 3600 + start_minute * 60
+arrival_seconds = start_seconds + running_seconds
+
+arrival_hour = arrival_seconds // 3600
+arrival_minute = (arrival_seconds % 3600) // 60
+
+print(f"{arrival_hour:02d}:{arrival_minute:02d}")
 
 # ------------------------------------------------------------------------------
 # Part 3: Centering & Formatting Strings
@@ -40,3 +65,8 @@
 # Print the banner.
 # ------------------------------------------------------------------------------
 # TODO: Write Part 3 together in class below:
+text = "PYTHON CSE 101"
+
+banner = text.center(30, "=")
+
+print(banner)
