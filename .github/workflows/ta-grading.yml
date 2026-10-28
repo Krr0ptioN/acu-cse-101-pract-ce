@@ -1,6 +1,12 @@
 name: "ACU CSE 101 - TA Automated Grading"
 
 on:
+  workflow_dispatch:
+    inputs:
+      pull-request-number:
+        description: "Student PR number to grade using the current course action"
+        required: true
+        type: string
   pull_request:
     types: [opened, synchronize, reopened, edited]
 
@@ -9,10 +15,7 @@ permissions:
 
 jobs:
   grade:
-    if: >-
-      github.repository == 'Krr0ptioN/acu-cse-101-pract-ce' &&
-      github.event.pull_request.base.ref == github.event.pull_request.head.repo.owner.login &&
-      startsWith(github.event.pull_request.head.ref, 'submit/')
+    if: github.repository == 'Krr0ptioN/acu-cse-101-pract-ce'
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
@@ -21,25 +24,32 @@ jobs:
         with:
           ref: main
           persist-credentials: false
-      - name: Checkout student exercise snapshot
-        uses: actions/checkout@v4
-        with:
-          repository: ${{ github.event.pull_request.head.repo.full_name }}
-          ref: ${{ github.event.pull_request.head.sha }}
-          path: student-submission
-          persist-credentials: false
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
+      - name: Resolve student submission
+        id: submission
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PR_NUMBER: ${{ inputs.pull-request-number || github.event.pull_request.number }}
+        run: python3 scripts/grading_context.py
+      - name: Checkout student exercise snapshot
+        uses: actions/checkout@v4
+        with:
+          repository: ${{ steps.submission.outputs.head_repo }}
+          ref: ${{ steps.submission.outputs.head_sha }}
+          path: student-submission
+          persist-credentials: false
       - name: Install trusted test dependencies
         run: python -m pip install -r requirements.txt -r requirements-dev.txt
       - name: Prepare student exercises with course tests
         env:
-          HEAD_REF: ${{ github.event.pull_request.head.ref }}
+          HEAD_REF: ${{ steps.submission.outputs.head_ref }}
         run: python3 scripts/prepare_grading.py
       - name: Run bundled TA review action
         uses: ./.github/actions/ta-review
         with:
           github-token: ${{ github.token }}
+          pull-request-number: ${{ steps.submission.outputs.pull_number }}
           week: auto
           record-submission-branch: "false"

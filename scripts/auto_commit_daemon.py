@@ -149,6 +149,18 @@ def perform_auto_commit(
         )
         if res.returncode == 0:
             log_message(repo_dir, f"Auto-saved: {summary}", verbose)
+            # 4. Push to student's fork (origin/workspace) so work is always publicly available
+            push_res = subprocess.run(
+                ["git", "push", "origin", f"HEAD:refs/heads/{curr_branch}"],
+                cwd=repo_dir,
+                capture_output=True,
+                text=True,
+                check=False,
+            )
+            if push_res.returncode == 0:
+                log_message(repo_dir, f"Auto-pushed {summary} to origin/{curr_branch}", verbose)
+            else:
+                log_message(repo_dir, f"Auto-push will retry later: {push_res.stderr.strip()}", verbose)
         return res.returncode == 0
     except OSError:
         return False

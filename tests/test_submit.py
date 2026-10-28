@@ -66,3 +66,48 @@ def test_failed_submission_does_not_create_pr_and_restores_workspace(repos, monk
     with pytest.raises(RuntimeError, match="API unavailable"):
         submit.handle_submission(str(student), "week_01")
     assert git(student, "branch", "--show-current") == "workspace"
+
+
+def test_detect_target_week_from_file_path(tmp_path):
+    repo = tmp_path / "repo"
+    (repo / "exercises/week_01_intro").mkdir(parents=True)
+    (repo / "exercises/week_02_vars").mkdir(parents=True)
+    file_path = str(repo / "exercises/week_02_vars/practice.py")
+    assert submit.detect_target_week(str(repo), file_path=file_path) == "week_02_vars"
+
+
+def test_detect_target_week_from_modified_file(tmp_path):
+    repo = tmp_path / "repo"
+    (repo / "exercises/week_01_intro").mkdir(parents=True)
+    (repo / "exercises/week_02_vars").mkdir(parents=True)
+    git(repo, "init")
+    git(repo, "config", "user.name", "Tester")
+    git(repo, "config", "user.email", "tester@example.com")
+    (repo / "exercises/week_01_intro/practice.py").write_text("print(1)\n")
+    (repo / "exercises/week_02_vars/practice.py").write_text("print(2)\n")
+    git(repo, "add", "exercises/")
+    git(repo, "commit", "-m", "init")
+    # Modify week 2 only
+    (repo / "exercises/week_02_vars/practice.py").write_text("print('updated')\n")
+    assert submit.detect_target_week(str(repo)) == "week_02_vars"
+
+
+def test_ensure_git_identity_configures_missing_identity(tmp_path, monkeypatch):
+    repo = tmp_path / "repo"
+    repo.mkdir()
+    monkeypatch.setenv("GIT_CONFIG_GLOBAL", str(tmp_path / "empty_gitconfig"))
+    monkeypatch.setenv("GIT_CONFIG_SYSTEM", str(tmp_path / "empty_system_gitconfig"))
+    git(repo, "init")
+    submit.ensure_git_identity(str(repo))
+    name = git(repo, "config", "user.name")
+    assert name == "CSE 101 Student"
+
+
+def test_run_gh_fallback_when_gh_missing(tmp_path, monkeypatch):
+    monkeypatch.setattr(submit.shutil, "which", lambda cmd: None)
+    monkeypatch.setattr(submit.os.path, "isfile", lambda path: False)
+    monkeypatch.setattr(submit, "python_gh_api", lambda repo, args, body=None: '{"status": "ok"}')
+    result = submit.run_gh(str(tmp_path), ["api", "repos/test"])
+    assert result == '{"status": "ok"}'
+
+

@@ -6,6 +6,9 @@ inputs:
   github-token:
     description: "GITHUB_TOKEN or Personal Access Token with PR comment and repo write permissions"
     required: true
+  pull-request-number:
+    description: "PR number when grading is dispatched from trusted course main"
+    required: false
   week:
     description: "Target week to evaluate (e.g., 'week_01_intro', or 'auto' to detect from PR diff)"
     required: false

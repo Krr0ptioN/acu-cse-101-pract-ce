@@ -30238,12 +30238,14 @@ async function run() {
         const recordBranch = core.getBooleanInput("record-submission-branch");
         const octokit = github.getOctokit(token);
         const context = github.context;
-        // Verify trigger context is a Pull Request
-        if (!context.payload.pull_request) {
-            core.setFailed("This action only runs on pull_request events.");
+        const numberInput = core.getInput("pull-request-number");
+        const pr = context.payload.pull_request || (numberInput
+            ? (await octokit.rest.pulls.get({ ...context.repo, pull_number: Number(numberInput) })).data
+            : undefined);
+        if (!pr) {
+            core.setFailed("A pull request event or pull-request-number input is required.");
             return;
         }
-        const pr = context.payload.pull_request;
         const prContext = {
             owner: context.repo.owner,
             repo: context.repo.repo,

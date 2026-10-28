@@ -2,13 +2,25 @@
   "version": "2.0.0",
   "tasks": [
     {
+      "label": "Check Environment",
+      "type": "process",
+      "command": "bash",
+      "args": ["${workspaceFolder}/scripts/check_environment.sh", "--check"],
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated"
+      }
+    },
+    {
       "label": "Run Tests",
       "type": "shell",
       "command": "python3 scripts/submit.py --test-only",
       "problemMatcher": [],
       "presentation": {
         "reveal": "always",
-        "panel": "dedicated"
+        "panel": "dedicated",
+        "clear": true
       },
       "group": {
         "kind": "test",
@@ -23,7 +35,8 @@
       "presentation": {
         "reveal": "always",
         "panel": "new",
-        "focus": true
+        "focus": true,
+        "clear": true
       },
       "group": {
         "kind": "build",
@@ -44,6 +57,16 @@
       "label": "Play",
       "type": "shell",
       "command": "python3 \"${file}\"",
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated"
+      }
+    },
+    {
+      "label": "Open Interactive Slides",
+      "type": "shell",
+      "command": "python3 -m http.server 8000 --directory docs",
       "problemMatcher": [],
       "presentation": {
         "reveal": "always",

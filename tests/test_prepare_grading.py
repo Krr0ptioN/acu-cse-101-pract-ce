@@ -2,6 +2,7 @@
 
 import pytest
 
+from scripts.grading_context import resolve
 from scripts.prepare_grading import prepare
 
 
@@ -26,3 +27,18 @@ def test_only_student_exercise_files_are_copied(tmp_path):
 def test_unknown_week_and_traversal_are_rejected(tmp_path):
     with pytest.raises(ValueError):
         prepare(tmp_path, tmp_path, "submit/../../main")
+
+
+def test_dispatched_grading_uses_the_exact_student_commit():
+    pr = {"number": 3, "user": {"login": "ada"}, "base": {"ref": "ada"},
+          "head": {"sha": "a" * 40, "ref": "submit/week_03_functions",
+                   "repo": {"fork": True, "full_name": "ada/course", "owner": {"login": "ada"}}}}
+
+    class API:
+        def request(self, path):
+            return pr
+
+    assert resolve(API(), 3)["head_sha"] == "a" * 40
+    pr["base"]["ref"] = "main"
+    with pytest.raises(ValueError, match="username"):
+        resolve(API(), 3)

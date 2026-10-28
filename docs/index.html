@@ -1,0 +1,242 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CSE 101: Python Fundamentals · Acıbadem University</title>
+  <meta name="description" content="Interactive lecture & practical sessions for CSE 101 (Introduction to Programming), Acıbadem University. Aligned with Think Python.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%232563eb'/%3E%3Cpath d='M16 6c-4 0-4 1.8-4 3v2h4.5v1H10c-2 0-3 1.5-3 4s1 4 3 4h2v-2.5c0-1.5 1-2.5 2.5-2.5h4c1.4 0 2.5-1 2.5-2.5V9c0-1.6-1.4-3-5.5-3z M16 26c4 0 4-1.8 4-3v-2h-4.5v-1H22c2 0 3-1.5 3-4s-1-4-3-4h-2v2.5c0 1.5-1 2.5-2.5 2.5h-4c-1.4 0-2.5 1-2.5 2.5V23c0 1.6 1.4 3 5.5 3z' fill='white'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/deck.css">
+  <style>
+    body { overflow: auto; }
+    .home { max-width: 1120px; margin: 0 auto; padding: 72px 24px 64px; }
+    .home .kicker { margin-bottom: 14px; display: inline-flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--accent); }
+    .home h1 { font-size: clamp(38px, 6.5vw, 68px); line-height: 1.05; letter-spacing: -0.04em; margin: 0 0 18px; }
+    .home .lead { font-size: clamp(17px, 2.2vw, 21px); line-height: 1.55; color: var(--ink-2); max-width: 860px; margin-bottom: 32px; }
+    
+    .hero-action { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; margin-bottom: 52px; }
+    .btn-hero { background: var(--accent); color: #fff; text-decoration: none; font-weight: 700; font-size: 16px; padding: 14px 28px; border-radius: 12px; display: inline-flex; align-items: center; gap: 10px; transition: all 0.2s var(--ease); box-shadow: var(--shadow); }
+    .btn-hero:hover { background: var(--accent-2); transform: translateY(-2px); color: #fff; }
+    .btn-secondary { background: var(--surface); color: var(--ink); border: 1px solid var(--line); text-decoration: none; font-weight: 600; font-size: 15px; padding: 13px 22px; border-radius: 12px; display: inline-flex; align-items: center; gap: 8px; transition: all 0.2s var(--ease); }
+    .btn-secondary:hover { border-color: var(--accent); color: var(--accent); }
+
+    .sec-title { font-size: 22px; font-weight: 700; letter-spacing: -0.02em; margin: 0 0 20px; display: flex; align-items: center; justify-content: space-between; }
+    .sec-title small { font-size: 14px; color: var(--muted); font-weight: normal; }
+
+    .modules-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px; }
+    .mod-card { position: relative; display: flex; flex-direction: column; gap: 12px; padding: 26px; border-radius: 20px; background: var(--surface); border: 1px solid var(--line); box-shadow: var(--shadow-sm); text-decoration: none; color: var(--ink); transition: transform 0.2s var(--ease), border-color 0.2s, box-shadow 0.2s; }
+    .mod-card:hover { transform: translateY(-3px); border-color: var(--accent); box-shadow: var(--shadow); }
+    .mod-top { display: flex; justify-content: space-between; align-items: center; }
+    .mod-num { font-family: var(--mono); font-weight: 700; font-size: 12.5px; color: var(--accent); background: var(--accent-soft); padding: 4px 10px; border-radius: 6px; }
+    .mod-ch { font-size: 13px; color: var(--muted); }
+    .mod-card h3 { margin: 0; font-size: 20px; letter-spacing: -0.01em; }
+    .mod-card p { margin: 0; color: var(--ink-2); font-size: 15px; line-height: 1.5; }
+    .mod-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: auto; padding-top: 10px; }
+    .mod-tags span { font-family: var(--mono); font-size: 12px; padding: 3px 8px; border-radius: 6px; background: var(--surface-2); color: var(--ink-2); }
+
+    .features-strip { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; margin: 52px 0; }
+    .feat-box { padding: 22px; border-radius: 16px; background: var(--surface-2); border: 1px solid var(--line); }
+    .feat-box h4 { margin: 0 0 6px; font-size: 16px; display: flex; align-items: center; gap: 8px; }
+    .feat-box p { margin: 0; font-size: 14px; color: var(--ink-2); line-height: 1.5; }
+
+    .keys { margin-top: 48px; padding: 22px 28px; border-radius: 18px; background: var(--surface-2); font-size: 14px; color: var(--ink-2); line-height: 1.9; border: 1px solid var(--line); }
+    .keys kbd { opacity: 0.9; margin: 0 3px; font-size: 12.5px; padding: 3px 7px; border-radius: 5px; background: var(--surface); border: 1px solid var(--line); box-shadow: 0 1px 1px rgba(0,0,0,0.06); }
+    
+    footer { margin-top: 52px; font-size: 14px; color: var(--muted); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; border-top: 1px solid var(--line); padding-top: 24px; }
+    footer a { color: var(--muted); text-decoration: underline; text-underline-offset: 3px; }
+    footer a:hover { color: var(--ink); }
+  </style>
+</head>
+<body data-course="cse101">
+  <main class="home">
+    <div class="kicker">Acıbadem University · Department of Computer Engineering</div>
+    <h1>CSE 101: Introduction to Programming</h1>
+    <p class="lead">Interactive, zero-setup lecture presentations with live Python 3 execution, memory state inspection, sequence box visualizers, and challenge test verification in your browser.</p>
+
+    <div class="hero-action">
+      <a class="btn-hero" href="cse101/">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+        Launch Interactive Lecture
+      </a>
+      <a class="btn-secondary" href="https://github.com/Krr0ptioN/acu-cse-101-pract-ce" target="_blank" rel="noopener">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+        GitHub Workspace
+      </a>
+      <a class="btn-secondary" href="https://codespaces.new/Krr0ptioN/acu-cse-101-pract-ce" target="_blank" rel="noopener">
+        Open in Codespaces
+      </a>
+    </div>
+
+    <div class="features-strip">
+      <div class="feat-box">
+        <h4>⚡ In-Browser Python 3</h4>
+        <p>Runs directly inside the browser using client-side execution. Zero server lag, instant feedback, and completely offline capable.</p>
+      </div>
+      <div class="feat-box">
+        <h4>🔍 Live Memory Inspector</h4>
+        <p>See every variable, data type, and value update in real time as statements and functions execute.</p>
+      </div>
+      <div class="feat-box">
+        <h4>📦 Sequence Visualizer</h4>
+        <p>Visual box diagrams for strings and lists with both 0-based positive indices and negative indices from the end.</p>
+      </div>
+      <div class="feat-box">
+        <h4>✅ Automated Challenge Checks</h4>
+        <p>Write solutions right in the slide lab with real-time test verification and one-click solution review.</p>
+      </div>
+    </div>
+
+    <div class="sec-title">
+      Course Curriculum &amp; Lecture Modules
+      <small>Jump directly to any section</small>
+    </div>
+
+    <div class="modules-grid">
+      <!-- Part 1 -->
+      <a class="mod-card" href="cse101/#4">
+        <div class="mod-top">
+          <span class="mod-num">Part 1</span>
+          <span class="mod-ch">Think Python Ch. 1 &amp; 2</span>
+        </div>
+        <h3>The Way of the Program &amp; Arithmetic</h3>
+        <p>Values, types (int, float, str, bool), operators (+, -, *, /, //, %, **), precedence rules, and debugging errors.</p>
+        <div class="mod-tags">
+          <span>type()</span>
+          <span>// vs /</span>
+          <span>%</span>
+          <span>**</span>
+          <span>Errors</span>
+        </div>
+      </a>
+
+      <!-- Part 2 -->
+      <a class="mod-card" href="cse101/#10">
+        <div class="mod-top">
+          <span class="mod-num">Part 2</span>
+          <span class="mod-ch">Think Python Ch. 2</span>
+        </div>
+        <h3>Variables &amp; Expressions</h3>
+        <p>Variables as name tags in memory, assignment vs equality, variable naming rules, reassignment, and tuple swap.</p>
+        <div class="mod-tags">
+          <span>= vs ==</span>
+          <span>snake_case</span>
+          <span>a, b = b, a</span>
+          <span>int()</span>
+        </div>
+      </a>
+
+      <!-- Part 3 -->
+      <a class="mod-card" href="cse101/#15">
+        <div class="mod-top">
+          <span class="mod-num">Part 3</span>
+          <span class="mod-ch">Think Python Ch. 3</span>
+        </div>
+        <h3>Functions &amp; Modularity</h3>
+        <p>Defining functions with def, parameters vs arguments, default values, return vs print(), and local scope.</p>
+        <div class="mod-tags">
+          <span>def</span>
+          <span>return</span>
+          <span>scope</span>
+          <span>None</span>
+          <span>composition</span>
+        </div>
+      </a>
+
+      <!-- Part 4 -->
+      <a class="mod-card" href="cse101/#21">
+        <div class="mod-top">
+          <span class="mod-num">Part 4</span>
+          <span class="mod-ch">Think Python Ch. 5</span>
+        </div>
+        <h3>Conditionals &amp; Logic</h3>
+        <p>Boolean comparisons, logical operators (and, or, not), if / elif / else branches, and short-circuit evaluation.</p>
+        <div class="mod-tags">
+          <span>== != &lt; &gt;</span>
+          <span>and / or / not</span>
+          <span>if / elif / else</span>
+          <span>short-circuit</span>
+        </div>
+      </a>
+
+      <!-- Part 5 -->
+      <a class="mod-card" href="cse101/#27">
+        <div class="mod-top">
+          <span class="mod-num">Part 5</span>
+          <span class="mod-ch">Think Python Ch. 7</span>
+        </div>
+        <h3>Iteration &amp; Loops</h3>
+        <p>while loops, for loops, range(start, stop, step), loop control (break &amp; continue), and accumulator patterns.</p>
+        <div class="mod-tags">
+          <span>while</span>
+          <span>for</span>
+          <span>range()</span>
+          <span>break</span>
+          <span>accumulator</span>
+        </div>
+      </a>
+
+      <!-- Part 6 -->
+      <a class="mod-card" href="cse101/#33">
+        <div class="mod-top">
+          <span class="mod-num">Part 6</span>
+          <span class="mod-ch">Think Python Ch. 8</span>
+        </div>
+        <h3>Strings &amp; Text Processing</h3>
+        <p>Zero-based and negative indexing, slicing [start:stop:step], string immutability, methods, and f-strings.</p>
+        <div class="mod-tags">
+          <span>s[i]</span>
+          <span>s[start:stop]</span>
+          <span>.strip()</span>
+          <span>.split()</span>
+          <span>immutable</span>
+        </div>
+      </a>
+
+      <!-- Part 7 -->
+      <a class="mod-card" href="cse101/#39">
+        <div class="mod-top">
+          <span class="mod-num">Part 7</span>
+          <span class="mod-ch">Think Python Ch. 10</span>
+        </div>
+        <h3>Lists &amp; Collections</h3>
+        <p>Mutable sequences, element modification in-place, list methods (.append, .pop, .sort), and aliasing vs copying.</p>
+        <div class="mod-tags">
+          <span>[ ]</span>
+          <span>.append()</span>
+          <span>.pop()</span>
+          <span>.sort()</span>
+          <span>b = a.copy()</span>
+        </div>
+      </a>
+
+      <!-- Part 8 -->
+      <a class="mod-card" href="cse101/#45">
+        <div class="mod-top">
+          <span class="mod-num">Part 8</span>
+          <span class="mod-ch">Synthesis &amp; Review</span>
+        </div>
+        <h3>Synthesis &amp; Codespaces</h3>
+        <p>End-to-end data pipeline combining loops, conditionals, strings, and lists. Complete cheat sheet and lab setup.</p>
+        <div class="mod-tags">
+          <span>Pipelines</span>
+          <span>Cheat Sheet</span>
+          <span>Codespaces</span>
+          <span>pytest</span>
+        </div>
+      </a>
+    </div>
+
+    <div class="keys">
+      <b>Interactive Presentation Controls:</b> <kbd>→</kbd> / <kbd>Space</kbd> next slide · <kbd>←</kbd> previous slide · <kbd>Enter</kbd> run next demo step or reveal prediction · <kbd>O</kbd> overview slide grid · <kbd>D</kbd> dark/light theme · <kbd>F</kbd> toggle fullscreen · <kbd>R</kbd> reset lab demo · <kbd>Ctrl+Enter</kbd> execute code in Python lab
+    </div>
+
+    <footer>
+      <div>Acıbadem University · Department of Computer Engineering · 2026 Academic Year</div>
+      <div><a href="https://github.com/Krr0ptioN/acu-cse-101-pract-ce" target="_blank" rel="noopener">Course Repository on GitHub</a></div>
+    </footer>
+  </main>
+</body>
+</html>

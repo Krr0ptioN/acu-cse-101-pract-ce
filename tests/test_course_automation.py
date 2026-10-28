@@ -73,6 +73,8 @@ class FakeGitHub:
             return {"parent": {"full_name": "teacher/course"}}
         if "/pulls/" in path:
             return {}
+        if path.endswith("/dispatches"):
+            return {}
         raise AssertionError(path)
 
 
@@ -98,7 +100,8 @@ def submission():
 def test_existing_main_pr_is_routed_to_username_branch():
     api = FakeGitHub()
     assert automation.route_submission(api, "teacher/course", submission())
-    assert api.calls[-1] == ("repos/teacher/course/pulls/3", "PATCH", {"base": "ada"})
+    assert ("repos/teacher/course/pulls/3", "PATCH", {"base": "ada"}) in api.calls
+    assert api.calls[-1][2] == {"ref": "main", "inputs": {"pull-request-number": "3"}}
 
 
 def test_unrelated_author_cannot_route_another_students_pr():
@@ -113,3 +116,48 @@ def test_unrelated_author_cannot_route_another_students_pr():
 def test_invalid_student_branches_are_rejected(login):
     with pytest.raises(ValueError):
         automation.ensure_student_branch(FakeGitHub(), "teacher/course", login)
+
+
+@pytest.mark.parametrize("permissions", [None, {}, {"push": False}])
+def test_fork_uses_its_own_token_without_user_permission_flags(monkeypatch, permissions):
+    class InstallationAPI:
+        def request(self, path, method="GET", data=None):
+            assert path == "repos/ada/course"
+            metadata = {"full_name": "ada/course", "parent": {"full_name": "teacher/course"}}
+            if permissions is not None:
+                metadata["permissions"] = permissions
+            return metadata
+
+    pushes = []
+    monkeypatch.setattr(automation, "sync_branches", lambda *args: pushes.append(args))
+    results = automation.synchronize(InstallationAPI(), "ada/course", course="teacher/course")
+    assert len(pushes) == 1
+    assert results == [("ada/course", "main and workspace synchronized")]
+
+
+def test_real_push_errors_still_fail_the_fork_sync(monkeypatch):
+    class API:
+        def request(self, path):
+            return {"full_name": "ada/course", "parent": {"full_name": "teacher/course"}}
+
+    def reject_push(*args):
+        raise RuntimeError("Git push rejected: write access not granted")
+
+    monkeypatch.setattr(automation, "sync_branches", reject_push)
+    result = automation.synchronize(API(), "ada/course", course="teacher/course")
+    assert result[0][1].startswith("FAILED: Git push rejected")
+
+
+def test_course_provisions_branches_without_student_fork_secrets(monkeypatch):
+    class API(FakeGitHub):
+        def pages(self, path):
+            if path == "repos/teacher/course/forks":
+                return iter([{"full_name": "ada/course", "owner": {"login": "ada"}}])
+            assert path == "repos/teacher/course/pulls?state=open"
+            return iter([])
+
+    api = API()
+    monkeypatch.setattr(automation, "sync_branches", lambda *args: pytest.fail("Course token cannot write student forks"))
+    result = automation.synchronize(api, "teacher/course", course="teacher/course")
+    assert api.refs["ada"] == "course-sha"
+    assert "automatic updates run in the fork's own workflow" in result[0][1]

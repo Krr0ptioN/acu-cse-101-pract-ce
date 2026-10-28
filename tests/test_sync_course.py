@@ -118,3 +118,23 @@ def test_watcher_syncs_at_startup_and_retries(monkeypatch, tmp_path):
     with pytest.raises(SystemExit):
         daemon.watch_workspace(str(tmp_path), False)
     assert len(attempts) == 2
+
+
+def test_auto_commit_daemon_commits_and_pushes_to_origin(repos):
+    from scripts import auto_commit_daemon as daemon
+
+    course, student, fork = repos
+    git(student, "fetch", "--unshallow", str(course))
+    git(student, "push", "origin", "main")
+    git(student, "checkout", "-b", "workspace")
+    (student / "exercises/week_01/practice.py").write_text("print('auto saved work')\n")
+    changed = daemon.get_git_status(str(student))
+    assert changed
+    success = daemon.perform_auto_commit(str(student), changed, verbose=False)
+    assert success
+    # Verify commit made on student repo
+    assert git(student, "show", "HEAD:exercises/week_01/practice.py") == "print('auto saved work')"
+    # Verify auto-push reached fork (origin)
+    assert git(fork, "show", "workspace:exercises/week_01/practice.py") == "print('auto saved work')"
+
+

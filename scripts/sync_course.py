@@ -100,11 +100,23 @@ def switch_to_workspace(repo_dir: str) -> str:
     return STUDENT_WORK_BRANCH
 
 
+def ensure_git_identity(repo_dir: str):
+    """Ensure git user.name and user.email are set to prevent commit failures."""
+    try:
+        name_check = run_git(["config", "user.name"], repo_dir)
+        if not name_check.stdout.strip():
+            run_git(["config", "user.name", "CSE 101 Student"], repo_dir)
+            run_git(["config", "user.email", "student@cse101.acibadam.edu.tr"], repo_dir)
+    except OSError:
+        pass
+
+
 def sync_course(repo_dir: str):
     print(
         f"\n{BOLD}{CYAN}=== 🔄 ACU CSE 101: Syncing Weekly Course Materials ==={RESET}\n"
     )
 
+    ensure_git_identity(repo_dir)
     ensure_upstream_remote(repo_dir)
 
     # 1. Ensure student work is in 'workspace', not 'main', before auto-saving.
@@ -164,6 +176,21 @@ def sync_course(repo_dir: str):
     print("\n☁️ Backing up your workspace to your GitHub fork...")
     checked_git(["push", "origin", f"HEAD:refs/heads/{curr_branch}"], repo_dir)
     print("✅ Fork synchronized.\n")
+
+    # First sync also activates the recurring workflow in the student's fork.
+    # Load the newly synced helper from disk, even in an older watcher process.
+    helper = os.path.join(repo_dir, "scripts", "enable_fork_sync.py")
+    if os.path.isfile(helper):
+        try:
+            setup = subprocess.run(
+                [sys.executable, helper], cwd=repo_dir, capture_output=True, text=True, check=False
+            )
+            if setup.returncode:
+                print("ℹ️ Note: Automatic scheduled workflow could not be registered yet. Local sync succeeded.")
+            else:
+                print("📅 Automatic updates enabled: Mondays at 14:30 Istanbul time.")
+        except OSError:
+            pass
 
 
 def main():

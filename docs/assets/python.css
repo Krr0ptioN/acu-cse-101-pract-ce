@@ -1,0 +1,477 @@
+/* ==========================================================================
+   CSE 101 — Python Lab & Sequence Visualizer Styles
+   ========================================================================== */
+
+:root {
+  --py-blue: #3776ab;
+  --py-yellow: #ffd43b;
+  --py-border: rgba(0, 0, 0, 0.08);
+}
+
+.python-lab {
+  display: grid;
+  grid-template-columns: 1.15fr 0.95fr;
+  gap: 16px;
+  min-height: 0;
+  flex: 1;
+  height: 100%;
+}
+
+.py-left {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-height: 0;
+}
+
+.py-right {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-height: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-width: thin;
+}
+
+/* ---------------------------------------------------------------- editor */
+.py-editor {
+  flex: 1;
+  min-height: 220px;
+  background: var(--term-bg);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  display: flex;
+  flex-direction: column;
+}
+
+.py-bar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 12px 8px 16px;
+  background: var(--term-bar);
+  font-size: 13px;
+  color: var(--term-muted);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.py-title {
+  font-weight: 600;
+  color: #b5b8c2;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.py-title svg {
+  width: 16px;
+  height: 16px;
+}
+
+.py-hint {
+  margin-left: auto;
+  font-size: 12px;
+  opacity: 0.8;
+}
+
+.py-run {
+  border: 0;
+  background: var(--accent);
+  color: #fff;
+  font-weight: 700;
+  font-size: 13px;
+  padding: 5px 14px;
+  border-radius: 8px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s var(--ease);
+  cursor: pointer;
+}
+
+.py-run:hover {
+  background: var(--accent-2);
+  transform: translateY(-1px);
+}
+
+.py-run:active {
+  transform: translateY(0);
+}
+
+.py-code-wrap {
+  position: relative;
+  flex: 1;
+  min-height: 180px;
+}
+
+.py-hl,
+.py-input {
+  position: absolute;
+  inset: 0;
+  margin: 0;
+  padding: 14px 18px;
+  font-family: var(--mono);
+  font-size: var(--editor-code-size, 17.5px);
+  line-height: 1.62;
+  white-space: pre-wrap;
+  word-break: break-word;
+  overflow: auto;
+  tab-size: 4;
+}
+
+.py-hl {
+  color: var(--term-ink);
+  pointer-events: none;
+  scrollbar-width: none;
+}
+
+.py-input {
+  background: transparent;
+  color: transparent;
+  caret-color: var(--accent);
+  border: 0;
+  outline: 0;
+  resize: none;
+  scrollbar-width: thin;
+}
+
+.py-input::selection {
+  background: rgba(96, 165, 250, 0.25);
+}
+
+/* Syntax Highlighting — Theme-aware with high contrast ratios */
+:root {
+  --syn-kw: #b91c1c;        /* def, if, for, return (crimson red, 6.8:1 on light) */
+  --syn-fn: #6b21a8;        /* print, len, range (royal purple, 8.2:1 on light) */
+  --syn-str: #15803d;       /* "strings" (rich forest emerald, 4.9:1 on light) */
+  --syn-num: #0369a1;       /* 42, 3.14 (rich ocean blue, 5.8:1 on light) */
+  --syn-com: #475569;       /* # comments (slate-600, 5.9:1 on light, clear readable italic) */
+  --syn-op: #c2410c;        /* +, -, ==, and, or (burnt orange, 5.2:1 on light) */
+  --syn-bool: #c2410c;      /* True, False, None (amber-orange bold) */
+  --syn-ink: #0f172a;       /* base code ink on light cards (slate-900, 14:1) */
+}
+
+/* Dark surfaces (editor, reference solutions, codeblocks, dark theme) */
+:root[data-theme="dark"],
+.py-editor,
+.sol-card,
+.codeblock,
+.term {
+  --syn-kw: #f87171;        /* coral red, 7.8:1 on dark */
+  --syn-fn: #c084fc;        /* bright lavender, 8.5:1 on dark */
+  --syn-str: #4ade80;       /* bright mint green, 9.6:1 on dark */
+  --syn-num: #7dd3fc;       /* sky blue, 10.5:1 on dark */
+  --syn-com: #cbd5e1;       /* bright silver slate, 9.2:1 on dark, crisp and legible */
+  --syn-op: #fb923c;        /* warm orange, 8.2:1 on dark */
+  --syn-bool: #fde047;      /* warm amber, 13.5:1 on dark */
+  --syn-ink: #f8fafc;       /* slate-50 on dark, 16:1 */
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --syn-kw: #f87171;
+    --syn-fn: #c084fc;
+    --syn-str: #4ade80;
+    --syn-num: #7dd3fc;
+    --syn-com: #cbd5e1;
+    --syn-op: #fb923c;
+    --syn-bool: #fde047;
+    --syn-ink: #f8fafc;
+  }
+}
+
+.h-kw { color: var(--syn-kw); font-weight: 600; }
+.h-fn { color: var(--syn-fn); font-weight: 600; }
+.h-str { color: var(--syn-str); }
+.h-num { color: var(--syn-num); font-weight: 500; }
+.h-com { color: var(--syn-com); font-style: italic; font-weight: 500; }
+.h-op { color: var(--syn-op); }
+.h-bool { color: var(--syn-bool); font-weight: 600; }
+
+/* ---------------------------------------------------------------- console */
+.py-console {
+  flex: 1;
+  min-height: 140px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+}
+
+.py-chead {
+  flex: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 14px;
+  border-bottom: 1px solid var(--line);
+  font-size: 13px;
+  background: var(--surface-2);
+}
+
+.py-chead b {
+  color: var(--ink-2);
+  font-family: var(--mono);
+}
+
+.py-meta {
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.py-meta.err {
+  color: var(--red);
+}
+
+.py-cbody {
+  flex: 1;
+  padding: 12px 16px;
+  font-family: var(--mono);
+  font-size: var(--console-size, 16px);
+  line-height: 1.58;
+  overflow: auto;
+  scrollbar-width: thin;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.py-cbody:empty::before {
+  content: "Run your code to see output here...";
+  color: var(--muted);
+  font-style: italic;
+  font-family: var(--font);
+}
+
+.py-line-out {
+  color: var(--ink);
+}
+
+.py-line-ret {
+  color: var(--blue);
+  background: var(--blue-soft);
+  padding: 2px 6px;
+  border-radius: 4px;
+  display: inline-block;
+  margin-top: 4px;
+}
+
+.py-line-err {
+  color: var(--red);
+  background: var(--red-soft);
+  padding: 8px 12px;
+  border-radius: 8px;
+  margin-top: 4px;
+  border-left: 3px solid var(--red);
+}
+
+/* ---------------------------------------------------------------- state & memory */
+.py-panel {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+}
+
+.py-panel-head {
+  padding: 10px 14px 8px;
+  background: var(--surface-2);
+  border-bottom: 1px solid var(--line);
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.py-panel-head b {
+  font-family: var(--font);
+  font-size: 14px;
+  color: var(--ink);
+}
+
+.py-panel-head small {
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.py-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: calc(var(--code-size, 16px) - 1px);
+  table-layout: fixed;
+}
+
+.py-table th {
+  text-align: left;
+  font-family: var(--mono);
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--muted);
+  padding: 8px 10px;
+  border-bottom: 1px solid var(--line);
+  background: var(--surface);
+}
+
+.py-table th:nth-child(1), .py-table td:nth-child(1) { width: 34%; }
+.py-table th:nth-child(2), .py-table td:nth-child(2) { width: 22%; }
+.py-table th:nth-child(3), .py-table td:nth-child(3) { width: 44%; }
+
+.py-table td {
+  padding: 8px 10px;
+  border-bottom: 1px solid var(--line);
+  font-family: var(--mono);
+  vertical-align: middle;
+  word-break: break-all;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.py-table tr:last-child td {
+  border-bottom: 0;
+}
+
+.py-table tr.updated td {
+  background: var(--accent-soft);
+}
+
+.py-type {
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 2px 7px;
+  border-radius: 4px;
+  font-family: var(--mono);
+}
+
+.py-type.int { background: var(--blue-soft); color: var(--blue); }
+.py-type.float { background: var(--violet-soft); color: var(--violet); }
+.py-type.str { background: var(--green-soft); color: var(--green); }
+.py-type.bool { background: var(--amber-soft); color: var(--amber); }
+.py-type.list { background: rgba(229, 83, 59, 0.15); color: var(--accent); }
+.py-type.func { background: var(--surface-3); color: var(--muted); }
+
+/* ---------------------------------------------------------------- Sequence Visualizer */
+.seq-box-container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 14px;
+}
+
+.seq-item-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.seq-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--muted);
+  font-family: var(--mono);
+}
+
+.seq-row {
+  display: flex;
+  gap: 4px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+  scrollbar-width: thin;
+}
+
+.seq-cell {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 42px;
+  border-radius: 8px;
+  background: var(--surface-2);
+  border: 1px solid var(--line);
+  overflow: hidden;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.03);
+}
+
+.seq-idx-top {
+  font-size: 11.5px;
+  font-family: var(--mono);
+  color: var(--muted);
+  padding: 3px 6px;
+  background: var(--surface-3);
+  width: 100%;
+  text-align: center;
+  border-bottom: 1px solid var(--line);
+}
+
+.seq-val {
+  font-size: var(--code-size, 17px);
+  font-weight: 600;
+  font-family: var(--mono);
+  color: var(--ink);
+  padding: 7px 10px;
+}
+
+.seq-idx-bot {
+  font-size: 11.5px;
+  font-family: var(--mono);
+  color: var(--accent);
+  padding: 3px 6px;
+  background: var(--accent-soft);
+  width: 100%;
+  text-align: center;
+  border-top: 1px solid var(--line);
+}
+
+/* ---------------------------------------------------------------- Visual Concept Cards */
+.diagram-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 10px 16px;
+  border-radius: 12px;
+  background: var(--surface-2);
+  border: 1px solid var(--line);
+  margin: 8px 0 14px;
+}
+
+.flow-step {
+  padding: 8px 14px;
+  border-radius: 8px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  font-family: var(--mono);
+  font-size: 13.5px;
+  box-shadow: var(--shadow-sm);
+  text-align: center;
+}
+
+.flow-step.active {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 2px var(--accent-soft);
+}
+
+.flow-arrow {
+  color: var(--muted);
+  font-weight: bold;
+}
+
+/* Memory Box Diagram */
+.mem-box {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px;
+  border-radius: 8px;
+  border: 1px dashed var(--muted);
+  background: var(--surface);
+  font-family: var(--mono);
+  font-size: 13px;
+}
