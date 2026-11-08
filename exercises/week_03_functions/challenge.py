@@ -1,5 +1,6 @@
-"""Week 03 Graded Challenge: Functions — Think Python, Chapter 3.
 
+"""Week 03 Graded Challenge: Functions — Think Python, Chapter 3.
+ 
 Complete the three functions below. Replace pass with your code.
 Use the supplied parameters and return the answer instead of printing it.
 Do not use input(). No imports, loops, or conditions are needed.
@@ -12,16 +13,14 @@ Keep the function names and parameters unchanged so the tests can call them.
 # Examples: greet("Ada") returns "Hello, Ada!"
 #           greet("Deniz") returns "Hello, Deniz!"
 def greet(name):
-    # TODO: Return the greeting.
-    pass
+    return f"Hello, {name}!"
 
 
 # Challenge 2: Square a Number
 # Return the given number multiplied by itself.
 # Examples: square(4) returns 16; square(7) returns 49.
 def square(number):
-    # TODO: Return the square of number.
-    pass
+    return number * number
 
 
 # Challenge 3: Minutes to Seconds
@@ -30,5 +29,4 @@ def square(number):
 # Examples: minutes_to_seconds(2) returns 120.
 #           minutes_to_seconds(5) returns 300.
 def minutes_to_seconds(minutes):
-    # TODO: Return the duration in seconds.
-    pass
+    return minutes * 60
