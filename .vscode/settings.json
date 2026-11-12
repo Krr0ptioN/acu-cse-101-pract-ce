@@ -21,7 +21,7 @@
     "requirements.txt": true,
     "requirements-dev.txt": true
   },
-  "git.enabled": false,
+  "git.enabled": true,
   "git.decorations.enabled": false,
   "scm.diffDecorations": "none",
   "github.copilot.enable": {
@@ -50,5 +50,6 @@
   "tasks.statusbar.menu.showActionsButton": false,
   "tasks.statusbar.default.hide": false,
   "tasks.statusbar.hiddenTasks": [],
-  "tasks.statusbar.menu.hiddenTasks": []
+  "tasks.statusbar.menu.hiddenTasks": [],
+  "git.blame.editorDecoration.enabled": true
 }
