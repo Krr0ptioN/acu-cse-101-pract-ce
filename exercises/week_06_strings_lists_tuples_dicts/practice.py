@@ -1,59 +1,65 @@
-"""Weeks 06–08 Guided Workshop: Strings, Lists, Tuples, and Dictionaries.
+"""Weeks 06-08 Guided Workshop: Strings, Lists, Tuples, and Dictionaries."""
 
-Think Python: Chapters 8, 10, 11, and 12.
-Build each example together in class with your instructor / TA.
-Replace pass as you go.
-"""
+import string
+
 
 # 1. Strings: Palindrome Check
-# Return True if word is a palindrome (reads same forward and backward),
-# ignoring case and whitespace/punctuation.
-# Examples: is_palindrome("racecar") returns True
-#           is_palindrome("Noon") returns True
-#           is_palindrome("Python") returns False
+# Fixes: str has no .reverse() (use slicing [::-1]), and we must ignore
+# whitespace/punctuation, so keep only letters and digits.
 def is_palindrome(word):
-    key = word.lower()
-    return key == key.reverse()
+    key = "".join(ch for ch in word.lower() if ch.isalnum())
+    return key == key[::-1]
 
 
 # 2. Lists: Cumulative Sum
-# Return a new list where each element is the sum of all elements up to that index.
-# Examples: cumulative_sum([1, 2, 3]) returns [1, 3, 6]
-#           cumulative_sum([]) returns []
+# Fix: the original modified the input list; build a NEW list instead.
 def cumulative_sum(numbers):
-    for i in range(1, len(numbers)):
-        numbers[i] += numbers[i - 1]
-    return numbers
+    result = []
+    total = 0
+    for n in numbers:
+        total += n
+        result.append(total)
+    return result
 
 
-# 3. Lists: Remove Duplicates
-# Return a new list with duplicate elements removed, preserving first-appearance order.
-# Examples: remove_duplicates([1, 2, 2, 3, 1, 4]) returns [1, 2, 3, 4]
-#           remove_duplicates(["a", "b", "a"]) returns ["a", "b"]
+# 3. Lists: Remove Duplicates (keeps first-appearance order)
 def remove_duplicates(elements):
-    pass
+    seen = set()
+    result = []
+    for item in elements:
+        if item not in seen:
+            seen.add(item)
+            result.append(item)
+    return result
 
 
 # 4. Dictionaries: Word Frequency Counter
-# Return a dictionary mapping each cleaned, lowercased word to its occurrence count.
-# Examples: word_frequency("Hello world hello") returns {"hello": 2, "world": 1}
-# Examples: invert_dictionary({"a": 1, "b": 2, "c": 1}) returns {1: ["a", "c"], 2: ["b"]}
 def word_frequency(text):
-    pass
+    counts = {}
+    for word in text.lower().split():
+        word = word.strip(string.punctuation)
+        if word:
+            counts[word] = counts.get(word, 0) + 1
+    return counts
 
 
 # 5. Dictionaries: Invert Mapping
-# Invert a dictionary so that each value becomes a key pointing to a list of original keys.
 def invert_dictionary(d):
-    pass
+    inverted = {}
+    for key, value in d.items():
+        inverted.setdefault(value, []).append(key)
+    return inverted
 
 
 # 6. Tuples & Dictionaries: Most Frequent Letters
-# Return the top_n most frequent alphabetic characters as a list of (character, count) tuples,
-# sorted descending by count, breaking ties alphabetically.
-# Examples: most_frequent_letters("banana", top_n=2) returns [("a", 3), ("n", 2)]
 def most_frequent_letters(text, top_n):
-    pass
+    counts = {}
+    for ch in text.lower():
+        if ch.isalpha():
+            counts[ch] = counts.get(ch, 0) + 1
+    # Sort by count descending, then letter ascending for ties
+    ranked = sorted(counts.items(), key=lambda pair: (-pair[1], pair[0]))
+    return ranked[:top_n]
 
 
 if __name__ == "__main__":
