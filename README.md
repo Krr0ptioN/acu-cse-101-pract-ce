@@ -14,8 +14,15 @@ This repository is aligned with the textbook **_Think Python_ by Allen B. Downey
 Click the **Fork** button at the top-right of this repository page to create your personal copy under your GitHub account.
 
 ### Step 2: Open in GitHub Codespaces
-In your forked repository, click the green **Code** button, select the **Codespaces** tab, and click **Create codespace on main**.
-*(Everything is pre-installed for you: Python 3.12, VS Code extensions, test runners, and auto-save).*
+
+- **First Time Only**: In your forked repository, click the green **Code** button, select the **Codespaces** tab, and click **Create codespace on main**. *(Everything is pre-installed: Python 3.12, VS Code extensions, test runners, and auto-save).*
+- **For All Future Sessions (Do NOT Create a New Codespace!)**:
+  - **Do NOT click "Create codespace on main" again.** Recreating codespaces wastes time rebuilding and can cause you to hit Codespaces usage limits.
+  - Simply resume your existing codespace in one of two ways:
+    1. Go directly to **[github.com/codespaces](https://github.com/codespaces)** and click your existing codespace.
+    2. Or on your fork repository, click **Code → Codespaces**, and click the **name of your existing codespace** (e.g. *cautious-spoon-xyz*).
+    3. *Tip*: Bookmark your codespace URL in your browser for 1-click access anytime!
+  - **Getting New Weekly Exercises**: You do **not** need to create a new codespace when new weekly exercises are released! When your existing codespace runs, it automatically checks for and downloads new course materials every 5 minutes in the background. You can also trigger an immediate check anytime by clicking **Course Tasks → Sync Course** in the bottom status bar.
 
 ### Step 3: Start Coding & Check
 1. Open the current week's folder in the left sidebar: [`exercises/week_01_intro/practice.py`](exercises/week_01_intro/practice.py).
@@ -25,6 +32,7 @@ In your forked repository, click the green **Code** button, select the **Codespa
    - **`Submit`** sends your practice work to the TAs after your tests pass.
    - **`Sync Course`** downloads newly released weekly exercises.
    - **`Play`** runs the Python file currently open in the editor.
+   - **`Open Interactive Slides`** serves the interactive lecture and review slides locally at port 8000.
 
 ---
 
@@ -96,17 +104,19 @@ customizations outside `/workspaces` may not.
 
 ## 📅 Course Curriculum & Progressive Weekly Releases
 
+> [!NOTE]
+> **Current Course Progress:** The first half of the semester (Weeks 01–05 and Midterm I Review) is complete. The combined data structures module ([**Weeks 06–08: Strings, Lists, Tuples, and Dictionaries**](exercises/week_06_strings_lists_tuples_dicts/)) is released with simple challenges and in-class practice. Interactive review slides are accessible via `docs/` or the **Course Tasks → Open Interactive Slides** action.
+
 Exercises are released progressively week by week. Each week's challenge folder is kept in an independent release module:
 
 | Week | Directory | Think Python Chapters | Topic Summary | Status |
 |:---:|:---|:---|:---|:---:|
 | **01** | [`exercises/week_01_intro/`](exercises/week_01_intro/) | Ch. 1 & 2 | The Way of the Program & Basic Arithmetic | **Released** |
-| **02** | `exercises/week_02_variables/` | Ch. 2 | Variables, Expressions and Statements | *Weekly Release* |
-| **03** | `exercises/week_03_functions/` | Ch. 3 | Functions, Parameters and Return Values | *Weekly Release* |
+| **02** | [`exercises/week_02_variables/`](exercises/week_02_variables/) | Ch. 2 | Variables, Expressions and Statements | **Released** |
+| **03** | [`exercises/week_03_functions/`](exercises/week_03_functions/) | Ch. 3 | Functions, Parameters and Return Values | **Released** |
 | **04–05** | [`exercises/week_04_conditions_loops_recursion/`](exercises/week_04_conditions_loops_recursion/) | Ch. 5 & 7 | Conditions, Boolean Expressions, for / while Loops & Simple Recursion | **Released together** |
-| **06** | `exercises/week_06_strings_lists/` | Ch. 8 & 10 | Strings, Indexing, Slicing & Lists | *Weekly Release* |
-| **07** | *Midterm I Review* | Ch. 1–10 | Comprehensive Practice Review | *In Class* |
-| **08** | `exercises/week_08_dictionaries_tuples/` | Ch. 11 & 12 | Dictionaries and Tuples | *Weekly Release* |
+| **06–08** | [`exercises/week_06_strings_lists_tuples_dicts/`](exercises/week_06_strings_lists_tuples_dicts/) | Ch. 8, 10, 11 & 12 | Strings, Lists, Tuples & Dictionaries | **Released together** |
+| **07** | [`docs/cse101/`](docs/cse101/) | Ch. 1–10 | Midterm I Comprehensive Review & Interactive Slides | **Completed in Class** |
 | **09** | `exercises/week_09_files/` | Ch. 14 | File Reading, Writing and Exceptions | *Weekly Release* |
 | **10** | `exercises/week_10_classes_objects/` | Ch. 15 | Classes, Objects and 2D Geometry | *Weekly Release* |
 | **11** | `exercises/week_11_classes_functions/` | Ch. 16 | Classes, Time and Pure Functions | *Weekly Release* |
@@ -145,7 +155,9 @@ opens a PR from `student:submit/week_03_functions` into
 `Krr0ptioN/acu-cse-101-pract-ce:student`. Instructor merges retain each student's
 work on that branch. Automated grading uses the published course tests and the
 bundled TA action, with results in the Actions job summary. Read-only fork tokens
-may prevent posting a PR comment; they do not prevent grading.
+may prevent posting a PR comment; they do not prevent grading. Instructors and
+TAs can also use `python3 scripts/review_and_merge.py` to automatically batch-review,
+test, and squash-merge passing submissions into student branches.
 
 ### Automatic fork synchronization
 

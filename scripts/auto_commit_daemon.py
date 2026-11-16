@@ -98,15 +98,14 @@ def perform_auto_commit(
         # Protect 'main' branch - ensure student work is always on 'workspace'
         curr_branch = get_current_branch(repo_dir)
         if curr_branch == "main":
-            subprocess.run(
-                ["git", "checkout", "workspace"] if subprocess.run(
-                    ["git", "show-ref", "--verify", "--quiet", "refs/heads/workspace"],
+            if subprocess.run(
+                ["git", "checkout", "workspace"],
+                cwd=repo_dir, capture_output=True, check=False,
+            ).returncode != 0:
+                subprocess.run(
+                    ["git", "checkout", "-b", "workspace"],
                     cwd=repo_dir, capture_output=True, check=False,
-                ).returncode == 0 else ["git", "checkout", "-b", "workspace"],
-                cwd=repo_dir,
-                capture_output=True,
-                check=False,
-            )
+                )
             log_message(
                 repo_dir,
                 "Switched from 'main' to 'workspace' branch to keep main clean.",

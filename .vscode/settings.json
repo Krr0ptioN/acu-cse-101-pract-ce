@@ -31,8 +31,6 @@
   "chat.commandCenter.enabled": false,
   "inlineChat.enable": false,
   "extensions.ignoreRecommendations": true,
-  "extensions.autoCheckUpdates": false,
-  "extensions.autoUpdate": false,
   "workbench.startupEditor": "none",
   "workbench.tips.enabled": false,
   "workbench.welcomePage.walkthroughs.openOnInstall": false,

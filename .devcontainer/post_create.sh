@@ -28,9 +28,7 @@ if ! git remote get-url upstream >/dev/null 2>&1; then
 fi
 
 # Ensure student starts on the 'workspace' branch, keeping 'main' pristine
-if git show-ref --verify --quiet refs/heads/workspace; then
-    git checkout workspace
-else
+if ! git checkout workspace >/dev/null 2>&1; then
     git checkout -b workspace
 fi
 

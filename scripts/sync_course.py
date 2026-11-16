@@ -89,12 +89,9 @@ def switch_to_workspace(repo_dir: str) -> str:
     if current_branch != "main":
         return current_branch
 
-    workspace_exists = run_git(
-        ["show-ref", "--verify", "--quiet", f"refs/heads/{STUDENT_WORK_BRANCH}"],
-        repo_dir,
-    ).returncode == 0
-    command = ["checkout", STUDENT_WORK_BRANCH] if workspace_exists else ["checkout", "-b", STUDENT_WORK_BRANCH]
-    checkout_res = run_git(command, repo_dir)
+    checkout_res = run_git(["checkout", STUDENT_WORK_BRANCH], repo_dir)
+    if checkout_res.returncode != 0:
+        checkout_res = run_git(["checkout", "-b", STUDENT_WORK_BRANCH], repo_dir)
     if checkout_res.returncode != 0:
         raise RuntimeError(checkout_res.stderr.strip() or "Unable to open the student workspace.")
     return STUDENT_WORK_BRANCH
