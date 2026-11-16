@@ -26,8 +26,12 @@ env/
 Thumbs.db
 Desktop.ini
 
+# Tool metadata
+.omx/
+
 # Temporary archives
 *.zip
 *.tar.gz
 *.log
 temp/
+
