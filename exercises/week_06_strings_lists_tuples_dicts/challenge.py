@@ -50,5 +50,4 @@ def count_characters(text):
     freq = {}
     for char in text:
         freq[char] = freq.get(char, 0) + 1
-    return freq 
-
+    return freq
