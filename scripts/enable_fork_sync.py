@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 """Install and activate scheduled fork updates during the student's initial sync."""
 
 import json

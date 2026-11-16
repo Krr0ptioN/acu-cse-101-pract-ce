@@ -138,3 +138,28 @@ def test_auto_commit_daemon_commits_and_pushes_to_origin(repos):
     assert git(fork, "show", "workspace:exercises/week_01/practice.py") == "print('auto saved work')"
 
 
+def test_sync_recovers_when_scripts_have_local_changes(repos):
+    course, student, _ = repos
+    script_in_course = course / "scripts/enable_fork_sync.py"
+    script_in_course.parent.mkdir(parents=True, exist_ok=True)
+    script_in_course.write_text("# upstream version 1\n")
+    git(course, "add", ".")
+    git(course, "commit", "-m", "Add script to course")
+
+    # Initial sync
+    sync_course.sync_course(str(student))
+
+    # Upstream releases update to the script
+    script_in_course.write_text("# upstream version 2\n")
+    git(course, "add", ".")
+    git(course, "commit", "-m", "Update script in course")
+
+    # Student has local dirty modifications to the script in workspace
+    script_in_student = student / "scripts/enable_fork_sync.py"
+    script_in_student.write_text("# student modified locally\n")
+
+    # Sync should succeed without 'Your local changes to the following files would be overwritten by merge' error
+    sync_course.sync_course(str(student))
+    assert script_in_student.read_text() == "# upstream version 2\n"
+
+

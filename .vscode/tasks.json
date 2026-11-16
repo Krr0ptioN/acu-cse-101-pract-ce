@@ -1,5 +1,8 @@
 {
   "version": "2.0.0",
+  "options": {
+    "cwd": "${workspaceFolder}"
+  },
   "tasks": [
     {
       "label": "Check Environment",
@@ -60,7 +63,8 @@
       "problemMatcher": [],
       "presentation": {
         "reveal": "always",
-        "panel": "dedicated"
+        "panel": "dedicated",
+        "focus": true
       }
     },
     {

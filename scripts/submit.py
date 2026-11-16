@@ -418,6 +418,10 @@ def ensure_committed(repo_dir: str):
     status = checked_git(["status", "--porcelain", "exercises/"], repo_dir)
     if status.stdout.strip():
         checked_git(["commit", "-m", "Pre-submission snapshot", "--", "exercises/"], repo_dir)
+    # Discard accidental modifications or filemode changes to course scripts
+    # so switching to submission branches is never blocked.
+    subprocess.run(["git", "config", "core.filemode", "false"], cwd=repo_dir, check=False)
+    subprocess.run(["git", "checkout", "HEAD", "--", "scripts/"], cwd=repo_dir, check=False)
 
 
 def handle_submission(repo_dir: str, week: str):

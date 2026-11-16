@@ -129,6 +129,11 @@ def sync_course(repo_dir: str):
         print("💾 Auto-saving current work before synchronization...")
         checked_git(["commit", "-m", "Auto-save before course sync", "--", "exercises/"], repo_dir)
 
+    # Discard any accidental modifications or filemode changes to course scripts
+    # so newly released upstream materials merge cleanly without blocking students.
+    run_git(["config", "core.filemode", "false"], repo_dir)
+    run_git(["checkout", "HEAD", "--", "scripts/"], repo_dir)
+
     # 2. Fetch the latest released weekly modules from upstream main
     print("📡 Checking for newly released challenges and workshops from upstream...")
     # Codespaces may use shallow clones; recover ancestry before merging.
