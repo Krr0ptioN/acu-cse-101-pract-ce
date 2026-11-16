@@ -122,21 +122,6 @@ print(f"Sphere Surface Area: {surface_area:.2f}")
 cup_a = input("Enter item in Cup A: ").strip()
 cup_b = input("Enter item in Cup B: ").strip()
 cup_c = input("Enter item in Cup C: ").strip()
-list_mix = [
-    cup_a, cup_b, cup_c
-
-]
-random.shuffle(list_mix)
-
-
-cup_a, cup_b, cup_c = list_mix
-print(cup_a, cup_b, cup_c, sep=" -> ")
-
-#or this one gng
-
-cup_a = input("Enter item in Cup A: ").strip()
-cup_b = input("Enter item in Cup B: ").strip()
-cup_c = input("Enter item in Cup C: ").strip()
 
 # TEK ATAMA SATIRI (ONE assignment statement):
 cup_a, cup_b, cup_c = cup_c, cup_a, cup_b
