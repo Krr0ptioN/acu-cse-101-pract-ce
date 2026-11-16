@@ -1032,7 +1032,7 @@ print(word[6:2:-1])`)}</pre>`,
         <div class="card good">
           <h3>In-Place Element Modification</h3>
           <p>You can directly overwrite elements by index:</p>
-          <pre class="codeblock" style="font-size:14px">${PythonHighlight(`grades = [70, 85, 90]
+          <pre class="codeblock">${PythonHighlight(`grades = [70, 85, 90]
 grades[0] = 78  # legal! modifies list in-place
 print(grades)   # [78, 85, 90]`)}</pre>
         </div>
@@ -1057,7 +1057,7 @@ print(grades)   # [78, 85, 90]`)}</pre>
         <div class="card bad">
           <h3>Aliasing <code>b = a</code> <span class="tag red">shared reference</span></h3>
           <p>Does NOT duplicate the list. Both variables point to the <b>exact same list</b> in memory!</p>
-          <pre class="codeblock" style="font-size:14px">${PythonHighlight(`a = [1, 2, 3]
+          <pre class="codeblock">${PythonHighlight(`a = [1, 2, 3]
 b = a          # b points to the same object!
 b.append(99)
 print(a)       # [1, 2, 3, 99] -> a changed too!`)}</pre>
@@ -1065,7 +1065,7 @@ print(a)       # [1, 2, 3, 99] -> a changed too!`)}</pre>
         <div class="card good">
           <h3>Cloning <code>b = a.copy()</code> <span class="tag green">independent clone</span></h3>
           <p>Creates an independent shallow copy. Modifying <code>b</code> leaves <code>a</code> untouched.</p>
-          <pre class="codeblock" style="font-size:14px">${PythonHighlight(`a = [1, 2, 3]
+          <pre class="codeblock">${PythonHighlight(`a = [1, 2, 3]
 b = a.copy()   # or b = a[:]
 b.append(99)
 print(a)       # [1, 2, 3] -> a is preserved!
@@ -1221,7 +1221,7 @@ print(f"Average word length across corpus: {avg_len:.2f} characters")`,
       section: SEC.p8,
       title: 'Python fundamentals cheat sheet',
       navTitle: 'Cheat sheet',
-      html: `<div class="grid2" style="font-size:13.5px">
+      html: `<div class="grid2" style="font-size:16.5px">
         <div class="card">
           <h3>Types &amp; Conversions</h3>
           <ul class="points tight">
@@ -1229,8 +1229,8 @@ print(f"Average word length across corpus: {avg_len:.2f} characters")`,
             <li>Arithmetic: <code>+</code>, <code>-</code>, <code>*</code>, <code>/</code>, <code>//</code>, <code>%</code>, <code>**</code></li>
             <li>f-strings: <code>f"Score: {val:.2f}"</code></li>
           </ul>
-          <h3 style="margin-top:12px">Functions</h3>
-          <pre class="codeblock" style="font-size:12.5px">${PythonHighlight(`def func(param, default=0):
+          <h3 style="margin-top:14px">Functions</h3>
+          <pre class="codeblock">${PythonHighlight(`def func(param, default=0):
     return param + default`)}</pre>
         </div>
         <div class="card">
@@ -1241,8 +1241,8 @@ print(f"Average word length across corpus: {avg_len:.2f} characters")`,
             <li>Strings: <b>immutable</b> (<code>.strip()</code>, <code>.split()</code>)</li>
             <li>Lists: <b>mutable</b> (<code>.append()</code>, <code>.pop()</code>, <code>.sort()</code>)</li>
           </ul>
-          <h3 style="margin-top:12px">Iteration</h3>
-          <pre class="codeblock" style="font-size:12.5px">${PythonHighlight(`for item in list: ...
+          <h3 style="margin-top:14px">Iteration</h3>
+          <pre class="codeblock">${PythonHighlight(`for item in list: ...
 for i in range(1, 10, 2): ...
 while condition: ...`)}</pre>
         </div>

@@ -562,5 +562,16 @@
     };
   }
 
-  window.Deck = { init, go, ICON, util: { exerciseLink, qrMount } };
+  window.Deck = {
+    init,
+    go,
+    prev,
+    next,
+    setZoom,
+    zoom: () => S.zoom || 1.0,
+    cycleTextSize,
+    curr: () => S.i,
+    ICON,
+    util: { exerciseLink, qrMount }
+  };
 })();
