@@ -105,7 +105,7 @@ customizations outside `/workspaces` may not.
 ## 📅 Course Curriculum & Progressive Weekly Releases
 
 > [!NOTE]
-> **Current Course Progress:** The first half of the semester (Weeks 01–05 and Midterm I Review) is complete. The combined data structures module ([**Weeks 06–08: Strings, Lists, Tuples, and Dictionaries**](exercises/week_06_strings_lists_tuples_dicts/)) is released with simple challenges and in-class practice. Interactive review slides are accessible via `docs/` or the **Course Tasks → Open Interactive Slides** action.
+> **Current Course Progress:** Weeks 01–08 and Midterm I Review are complete. [**Week 09: File Reading, Writing and Exceptions**](exercises/week_09_files/) and [**Week 10: Classes, Objects and 2D Geometry**](exercises/week_10_classes_objects/) are now released with in-class practice and graded challenges. Interactive review slides are accessible via `docs/` or the **Course Tasks → Open Interactive Slides** action.
 
 Exercises are released progressively week by week. Each week's challenge folder is kept in an independent release module:
 
@@ -117,8 +117,8 @@ Exercises are released progressively week by week. Each week's challenge folder 
 | **04–05** | [`exercises/week_04_conditions_loops_recursion/`](exercises/week_04_conditions_loops_recursion/) | Ch. 5 & 7 | Conditions, Boolean Expressions, for / while Loops & Simple Recursion | **Released together** |
 | **06–08** | [`exercises/week_06_strings_lists_tuples_dicts/`](exercises/week_06_strings_lists_tuples_dicts/) | Ch. 8, 10, 11 & 12 | Strings, Lists, Tuples & Dictionaries | **Released together** |
 | **07** | [`docs/cse101/`](docs/cse101/) | Ch. 1–10 | Midterm I Comprehensive Review & Interactive Slides | **Completed in Class** |
-| **09** | `exercises/week_09_files/` | Ch. 14 | File Reading, Writing and Exceptions | *Weekly Release* |
-| **10** | `exercises/week_10_classes_objects/` | Ch. 15 | Classes, Objects and 2D Geometry | *Weekly Release* |
+| **09** | [`exercises/week_09_files/`](exercises/week_09_files/) | Ch. 14 | File Reading, Writing and Exceptions | **Released** |
+| **10** | [`exercises/week_10_classes_objects/`](exercises/week_10_classes_objects/) | Ch. 15 | Classes, Objects and 2D Geometry | **Released** |
 | **11** | `exercises/week_11_classes_functions/` | Ch. 16 | Classes, Time and Pure Functions | *Weekly Release* |
 | **12** | `exercises/week_12_classes_methods/` | Ch. 17 | Object-Oriented Methods & Operator Overloading | *Weekly Release* |
 | **13** | `exercises/week_13_inheritance/` | Ch. 18 | Inheritance & Card Deck Polymorphism | *Weekly Release* |
