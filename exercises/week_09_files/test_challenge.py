@@ -25,6 +25,9 @@ def test_count_lines(tmp_path, content, expected):
     file_path.write_text(content, encoding="utf-8")
     assert count_lines(file_path) == expected, "Return the total number of lines in the file."
 
+def count_lines(file_path):
+    with open(file_path, "r", encoding="utf-8") as file:
+        return len(file.readlines())
 
 @pytest.mark.parametrize(
     "lines, expected",
@@ -42,6 +45,10 @@ def test_write_numbered_lines(tmp_path, lines, expected):
         "Write each line prefixed with its 1-based index, e.g. '1. apple\\n'."
     )
 
+def write_numbered_lines(file_path, lines):
+    with open(file_path, "w", encoding="utf-8") as file:
+        for i, line in enumerate(lines, 1):
+            file.write(f"{i}. {line}\n")
 
 @pytest.mark.parametrize(
     "content, keyword, expected",
@@ -59,6 +66,13 @@ def test_find_matching_lines(tmp_path, content, keyword, expected):
         "Return matching lines (case-insensitive) stripped of trailing newlines."
     )
 
+def find_matching_lines(file_path, keyword):
+    matches = []
+    with open(file_path, "r", encoding="utf-8") as file:
+        for line in file:
+            if keyword.lower() in line.lower():
+                matches.append(line.rstrip("\r\n"))
+    return matches
 
 def test_safe_read_int_valid(tmp_path):
     file_path = tmp_path / "num.txt"
@@ -75,6 +89,12 @@ def test_safe_read_int_missing_file(tmp_path):
     assert safe_read_int(missing) == 0, "Return default (0) when the file does not exist."
     assert safe_read_int(missing, default=-1) == -1, "Return the provided default when the file is missing."
 
+def safe_read_int(file_path, default=0):
+    try:
+        with open(file_path, "r", encoding="utf-8") as file:
+            return int(file.read().strip())
+    except (FileNotFoundError, ValueError):
+        return default
 
 @pytest.mark.parametrize("bad_content", ["hello", "", "3.14", "12 abc"])
 def test_safe_read_int_invalid_content(tmp_path, bad_content):
