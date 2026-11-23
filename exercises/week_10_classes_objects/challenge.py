@@ -37,8 +37,7 @@ class Circle:
 # Examples: distance_between_points(Point(0, 0), Point(3, 4)) returns 5.0
 #           distance_between_points(Point(1, 1), Point(1, 1)) returns 0.0
 def distance_between_points(p1, p2):
-    # TODO: Return Euclidean distance between p1 and p2
-    pass
+    return ((p2.x - p1.x)**2 + (p2.y - p1.y)**2)**0.5
 
 
 # Challenge 2 (Rectangles): Rectangle Area
@@ -46,8 +45,7 @@ def distance_between_points(p1, p2):
 # Examples: rectangle_area(Rectangle(Point(0, 0), 4, 5)) returns 20
 #           rectangle_area(Rectangle(Point(2, 3), 2.5, 4.0)) returns 10.0
 def rectangle_area(rect):
-    # TODO: Return width * height of rect
-    pass
+    return rect.width * rect.height
 
 
 # Challenge 3 (Circles): Point in Circle
@@ -58,8 +56,7 @@ def rectangle_area(rect):
 #           point_in_circle(c, Point(1, 1)) returns True  (inside)
 #           point_in_circle(c, Point(6, 0)) returns False (outside)
 def point_in_circle(circle, point):
-    # TODO: Return True if point is inside or on the boundary of circle
-    pass
+    return distance_between_points(circle.center, point) <= circle.radius
 
 
 # Challenge 4 (Copying Objects): Move Rectangle Copy
@@ -69,5 +66,6 @@ def point_in_circle(circle, point):
 #          r2 = move_rectangle_copy(r1, 5, -3)
 #          -> r2.corner is at (6, -1), r1.corner is still at (1, 2)
 def move_rectangle_copy(rect, dx, dy):
-    # TODO: Return a moved copy of rect without mutating the original
-    pass
+    new_corner = Point(rect.corner.x + dx, rect.corner.y + dy)
+    return Rectangle(new_corner, rect.width, rect.height)
+

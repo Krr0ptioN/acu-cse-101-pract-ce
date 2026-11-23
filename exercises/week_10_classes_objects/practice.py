@@ -27,21 +27,21 @@ class Rectangle:
 # Create and return a new Point object with attributes x and y.
 # Example: p = make_point(3, 4) -> p.x == 3, p.y == 4
 def make_point(x, y):
-    pass
-
+    return Point(x, y)
 
 # 2. Reading Attributes: Distance Between Points
 # Return the Euclidean distance between two Point objects p1 and p2.
 # Example: distance_between_points(Point(0, 0), Point(3, 4)) returns 5.0
 def distance_between_points(p1, p2):
-    pass
+    return ((p2.x - p1.x)**2 + (p2.y - p1.y)**2)**0.5
 
 
 # 3. Mutating Objects: Move Point In Place
 # Shift p in place by adding dx to p.x and dy to p.y.
 # Example: p = Point(1, 2); move_point(p, 3, -1) -> p.x == 4, p.y == 1
 def move_point(p, dx, dy):
-    pass
+    p.x += dx
+    p.y += dy
 
 
 # 4. Returning Objects: Find Center of Rectangle
@@ -49,21 +49,25 @@ def move_point(p, dx, dy):
 # (rect.corner.x + rect.width / 2, rect.corner.y + rect.height / 2).
 # Example: find_center(Rectangle(Point(0, 0), 10, 20)) -> Point(5.0, 10.0)
 def find_center(rect):
-    pass
+    x = rect.corner.x + rect.width / 2
+    y = rect.corner.y + rect.height / 2
+    return Point(x, y)
 
 
 # 5. Mutating Objects: Grow Rectangle In Place
 # Increase rect.width by dwidth and rect.height by dheight in place.
 # Example: grow_rectangle(rect, 5, 10) updates rect.width and rect.height
 def grow_rectangle(rect, dwidth, dheight):
-    pass
+    rect.width += dwidth
+    rect.height += dheight
 
 
 # 6. Copying Objects: Move Rectangle Copy
 # Return a NEW Rectangle shifted by (dx, dy) without modifying the original
 # rect or its corner Point (avoid aliasing with copy.deepcopy or new instances).
 def move_rectangle_copy(rect, dx, dy):
-    pass
+    new_corner = Point(rect.corner.x + dx, rect.corner.y + dy)
+    return Rectangle(new_corner, rect.width, rect.height)
 
 
 if __name__ == "__main__":
@@ -73,3 +77,4 @@ if __name__ == "__main__":
     print("2. Distance:", distance_between_points(p1, p2))
     box = Rectangle(Point(0, 0), 10, 20)
     print("4. Center:", find_center(box))
+
